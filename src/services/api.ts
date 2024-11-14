@@ -6,7 +6,7 @@ import axios from 'axios';
 import { getAuth, removeAuth } from '../app/modules/auth';
 
 // Récupérer l'URL de l'API depuis le fichier .env
-const API_URL = import.meta.env.VITE_APP_API_URL || 'http://127.0.0.1:8000';
+const API_URL = process.env.VITE_APP_API_URL || 'http://127.0.0.1:8000';
 
 // Instance principale d'Axios pour les requêtes avec authentification (JSON)
 const apiClient: AxiosInstance = axios.create({
@@ -59,7 +59,7 @@ apiClientFile.interceptors.response.use(
 
 // Service sans authentification pour les requêtes publiques
 const apiPublic: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_URL, // URL de base
+  baseURL: API_URL, // URL de base
   headers: {
     'Content-Type': 'application/json', // Par défaut, du JSON
   },
