@@ -6,7 +6,7 @@ import axios from 'axios';
 import { getAuth, removeAuth } from '../app/modules/auth';
 
 // Récupérer l'URL de l'API depuis le fichier .env
-const API_URL = process.env.REACT_APP_API_URL ;
+const API_URL = process.env.VITE_APP_API_URL ;
 
 // Instance principale d'Axios pour les requêtes avec authentification (JSON)
 const apiClient: AxiosInstance = axios.create({
