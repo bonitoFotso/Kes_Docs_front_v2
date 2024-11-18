@@ -37,6 +37,11 @@ export const navData = [
     title: 'Blog',
     path: '/blog',
     icon: icon('ic-blog'),
+    info: (
+      <Label color="error" variant="inverted">
+        +3
+      </Label>
+    ),
   },
   {
     title: 'Sign in',

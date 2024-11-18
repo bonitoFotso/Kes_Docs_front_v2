@@ -9,7 +9,7 @@ export const _workspaces = [
   },
   {
     id: 'team-2',
-    name: 'Team 2',
+    name: 'Team 2 ff',
     logo: `/assets/icons/workspaces/logo-2.webp`,
     plan: 'Pro',
   },

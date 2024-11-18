@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Paper, Typography, CircularProgress } from '@mui/material';
 
 import { apiPublic } from '../../services/api';
+import HabilitationForm from '../habilitation/habilitation';
 
 // Interface pour la réponse de l'API
 interface DateTimeResponse {
@@ -73,6 +74,8 @@ const Clock: React.FC = () => {
           {currentTime}
         </Typography>
       </Paper>
+      <HabilitationForm/>
+
     </Box>
   );
 };
