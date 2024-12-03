@@ -26,6 +26,7 @@ const apiClientFile: AxiosInstance = axios.create({
   },
 });
 
+// 
 const addAuthToken = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
   const auth = getAuth(); // Récupérer les informations d'authentification
   if (auth && auth.access) {

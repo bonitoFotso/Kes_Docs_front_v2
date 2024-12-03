@@ -7,14 +7,16 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Popover from '@mui/material/Popover';
 import Divider from '@mui/material/Divider';
-import MenuList from '@mui/material/MenuList';
+// import MenuList from '@mui/material/MenuList';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
+// import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
 
-import { useRouter, usePathname } from 'src/routes/hooks';
+// import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { _myAccount } from 'src/_mock';
+
+import { useAuthContext } from '../../contexts/AuthContext';
 
 // ----------------------------------------------------------------------
 
@@ -27,10 +29,11 @@ export type AccountPopoverProps = IconButtonProps & {
   }[];
 };
 
-export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps) {
-  const router = useRouter();
 
-  const pathname = usePathname();
+export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps) {
+  // const router = useRouter();
+
+  // const pathname = usePathname();
 
   const [openPopover, setOpenPopover] = useState<HTMLButtonElement | null>(null);
 
@@ -41,14 +44,18 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
   const handleClosePopover = useCallback(() => {
     setOpenPopover(null);
   }, []);
+  const { logout } = useAuthContext();
 
-  const handleClickItem = useCallback(
-    (path: string) => {
-      handleClosePopover();
-      router.push(path);
-    },
-    [handleClosePopover, router]
-  );
+  function handleLogout() {
+    logout().then(r => console.log('Logout success',r));
+  }
+  // const handleClickItem = useCallback(
+  //  (path: string) => {
+  //    handleClosePopover();
+  //    router.push(path);
+  //  },
+  //  [handleClosePopover, router]
+  // );
 
   return (
     <>
@@ -93,44 +100,12 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuList
-          disablePadding
-          sx={{
-            p: 1,
-            gap: 0.5,
-            display: 'flex',
-            flexDirection: 'column',
-            [`& .${menuItemClasses.root}`]: {
-              px: 1,
-              gap: 2,
-              borderRadius: 0.75,
-              color: 'text.secondary',
-              '&:hover': { color: 'text.primary' },
-              [`&.${menuItemClasses.selected}`]: {
-                color: 'text.primary',
-                bgcolor: 'action.selected',
-                fontWeight: 'fontWeightSemiBold',
-              },
-            },
-          }}
-        >
-          {data.map((option) => (
-            <MenuItem
-              key={option.label}
-              selected={option.href === pathname}
-              onClick={() => handleClickItem(option.href)}
-            >
-              {option.icon}
-              {option.label}
-            </MenuItem>
-          ))}
-        </MenuList>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Box sx={{ p: 1 }}>
-          <Button fullWidth color="error" size="medium" variant="text">
-            Logout
+          <Button fullWidth color="error" size="medium" variant="text"
+          onClick={() => handleLogout()}>
+            Deconnection
           </Button>
         </Box>
       </Popover>

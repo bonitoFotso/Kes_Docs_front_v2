@@ -8,6 +8,9 @@ import { varAlpha } from 'src/theme/styles';
 import { AuthLayout } from 'src/layouts/auth';
 import { DashboardLayout } from 'src/layouts/dashboard';
 
+import { PublicRoute } from './PublicRoute';
+import { PrivateRoute } from './PrivateRoute';
+
 // ----------------------------------------------------------------------
 
 export const HomePage = lazy(() => import('src/pages/home'));
@@ -40,7 +43,9 @@ export function Router() {
       element: (
         <DashboardLayout>
           <Suspense fallback={renderFallback}>
-            <Outlet />
+            <PrivateRoute>
+              <Outlet />
+            </PrivateRoute>
           </Suspense>
         </DashboardLayout>
       ),
@@ -56,7 +61,9 @@ export function Router() {
       path: 'sign-in',
       element: (
         <AuthLayout>
-          <SignInPage />
+          <PublicRoute>
+            <SignInPage />
+          </PublicRoute>
         </AuthLayout>
       ),
     },

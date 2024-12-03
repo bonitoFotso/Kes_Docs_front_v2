@@ -12,14 +12,18 @@ import { useRouter } from 'src/routes/hooks';
 
 import { Iconify } from 'src/components/iconify';
 
+import { useAuthContext } from '../../contexts/AuthContext';
+
 // ----------------------------------------------------------------------
 
 export function SignInView() {
-  const router = useRouter();
+  useRouter();
+  const { login } = useAuthContext();
+
 
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('hello@gmail.com');
-  const [password, setPassword] = useState('@demo1234');
+  const [email, setEmail] = useState('kesadmin@demo.com');
+  const [password, setPassword] = useState('2016');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,18 +34,14 @@ export function SignInView() {
 
     // Simuler un appel API pour l'authentification
     try {
-      // Remplacer cette logique par un appel à ton API d'authentification
-      if (email === 'hello@gmail.com' && password === '@demo1234') {
-        router.push('/');
-      } else {
-        setError('Identifiants incorrects');
-      }
+      const tokens = await login(email, password);
+      console.log('Connecté avec succès', tokens);
     } catch (err) {
       setError('Une erreur est survenue. Veuillez réessayer.');
     } finally {
       setIsLoading(false);
     }
-  }, [email, password, router]);
+  }, [email, login, password]);
 
   const renderForm = (
     <Box display="flex" flexDirection="column" alignItems="flex-end">
